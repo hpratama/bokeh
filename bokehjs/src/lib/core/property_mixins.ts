@@ -21,7 +21,7 @@ export type Fill = {
 export type Hatch = {
   hatch_color: p.Property<Color | null>
   hatch_alpha: p.Property<number>
-  hatch_number: p.Property<number>
+  hatch_scale: p.Property<number>
   hatch_pattern: p.Property<string>
   hatch_weight: p.Property<number>
 }
@@ -55,7 +55,7 @@ export type FillScalar = {
 export type HatchScalar = {
   hatch_color: p.ScalarSpec<Color | null>
   hatch_alpha: p.ScalarSpec<number>
-  hatch_number: p.ScalarSpec<number>
+  hatch_scale: p.ScalarSpec<number>
   hatch_pattern: p.ScalarSpec<string>
   hatch_weight: p.ScalarSpec<number>
 }
@@ -89,7 +89,7 @@ export type FillVector = {
 export type HatchVector = {
   hatch_color: p.VectorSpec<Color | null>
   hatch_alpha: p.VectorSpec<number>
-  hatch_number: p.VectorSpec<number>
+  hatch_scale: p.VectorSpec<number>
   hatch_pattern: p.VectorSpec<string>
   hatch_weight: p.VectorSpec<number>
 }
@@ -136,7 +136,7 @@ export const fill = (prefix: string = "") => _gen_mixin(_fill_mixin, prefix)
 const _hatch_mixin = {
   hatch_color:   [ p.ColorSpec,  'black' ],
   hatch_alpha:   [ p.NumberSpec, 1.0     ],
-  hatch_number:  [ p.NumberSpec, 12.0    ],
+  hatch_scale:  [ p.NumberSpec, 12.0    ],
   hatch_pattern: [ p.StringSpec, "o"     ],
   hatch_weight:  [ p.NumberSpec, 1.0     ],
 }

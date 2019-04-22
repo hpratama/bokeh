@@ -64,7 +64,7 @@ from ..core.enums import Anchor, Direction, StepMode
 from ..core.has_props import abstract
 from ..core.properties import (AngleSpec, Bool, DistanceSpec, Enum, Float, String,
                                Include, Instance, Int, NumberSpec, Override, StringSpec)
-from ..core.property_mixins import FillProps, HatchProps, LineProps, ScalarFillProps, ScalarLineProps, TextProps
+from ..core.property_mixins import FillProps, HatchProps, LineProps, ScalarFillProps, ScalarHatchProps, ScalarLineProps, TextProps
 from ..model import Model
 
 from .mappers import ColorMapper, LinearColorMapper
@@ -813,6 +813,10 @@ class Patch(XYGlyph):
     The %s values for the patch.
     """)
 
+    hatch_props = Include(ScalarHatchProps, use_prefix=False, help="""
+    The %s values for the horizontal bars.
+    """)
+
 class Patches(Glyph):
     ''' Render several patches.
 
@@ -853,6 +857,10 @@ class Patches(Glyph):
     The %s values for the patches.
     """)
 
+    hatch_props = Include(HatchProps, use_prefix=False, help="""
+    The %s values for the horizontal bars.
+    """)
+
 class Quad(Glyph):
     ''' Render axis-aligned quads.
 
@@ -886,6 +894,10 @@ class Quad(Glyph):
 
     fill_props = Include(FillProps, use_prefix=False, help="""
     The %s values for the quads.
+    """)
+
+    hatch_props = Include(HatchProps, use_prefix=False, help="""
+    The %s values for the horizontal bars.
     """)
 
 class Quadratic(Glyph):

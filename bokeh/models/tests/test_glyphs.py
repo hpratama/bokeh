@@ -22,8 +22,8 @@ import pytest ; pytest
 
 # Bokeh imports
 from .utils.property_utils import (
-    FILL, LINE, TEXT, GLYPH, MARKER,
-    check_properties_existence, check_fill_properties,
+    FILL, HATCH, LINE, TEXT, GLYPH, MARKER,
+    check_properties_existence, check_fill_properties, check_hatch_properties,
     check_line_properties, check_text_properties, check_marker_properties
 )
 
@@ -177,13 +177,14 @@ def test_HBar():
     assert glyph.left == 0
     assert glyph.right is None
     check_fill_properties(glyph)
+    check_hatch_properties(glyph)
     check_line_properties(glyph)
     check_properties_existence(glyph, [
         "y",
         "height",
         "left",
         "right",
-    ], FILL, LINE, GLYPH)
+    ], FILL, HATCH, LINE, GLYPH)
 
 
 def test_Image():
@@ -320,11 +321,12 @@ def test_Patch():
     assert glyph.x is None
     assert glyph.y is None
     check_fill_properties(glyph)
+    check_hatch_properties(glyph)
     check_line_properties(glyph)
     check_properties_existence(glyph, [
         "x",
         "y",
-    ], FILL, LINE, GLYPH)
+    ], FILL, HATCH, LINE, GLYPH)
 
 
 def test_Patches():
@@ -332,11 +334,12 @@ def test_Patches():
     assert glyph.xs is None
     assert glyph.ys is None
     check_fill_properties(glyph)
+    check_hatch_properties(glyph)
     check_line_properties(glyph)
     check_properties_existence(glyph, [
         "xs",
         "ys",
-    ], FILL, LINE, GLYPH)
+    ], FILL, HATCH, LINE, GLYPH)
 
 
 def test_Quad():
@@ -346,13 +349,14 @@ def test_Quad():
     assert glyph.bottom is None
     assert glyph.top is None
     check_fill_properties(glyph)
+    check_hatch_properties(glyph)
     check_line_properties(glyph)
     check_properties_existence(glyph, [
         "left",
         "right",
         "bottom",
         "top",
-    ], FILL, LINE, GLYPH)
+    ], FILL, HATCH, LINE, GLYPH)
 
 
 def test_Quadratic():
@@ -467,13 +471,14 @@ def test_VBar():
     assert glyph.top is None
     assert glyph.bottom == 0
     check_fill_properties(glyph)
+    check_hatch_properties(glyph)
     check_line_properties(glyph)
     check_properties_existence(glyph, [
         "x",
         "width",
         "top",
         "bottom",
-    ], FILL, LINE, GLYPH)
+    ], FILL, HATCH, LINE, GLYPH)
 
 
 def test_Wedge():

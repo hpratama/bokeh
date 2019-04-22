@@ -36,12 +36,12 @@ function _get_canvas(size: number): HTMLCanvasElement {
   return canvas
 }
 
-function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_number: number, hatch_weight:number ): HTMLCanvasElement {
-    const h = hatch_number
+function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_scale: number, hatch_weight:number ): HTMLCanvasElement {
+    const h = hatch_scale
     const h2 = h / 2
     const h4 = h2 / 2
 
-    const canvas = _get_canvas(hatch_number)
+    const canvas = _get_canvas(hatch_scale)
 
     const ctx = canvas.getContext("2d")!
     ctx.strokeStyle = hatch_color
@@ -51,24 +51,45 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_n
 
     switch (hatch_pattern) {
       case ".":
+      case "dot":
         ctx.arc(h2, h2, h2/2, 0, 2 * Math.PI, true)
         ctx.fill()
         break
+
       case "o":
+      case "ring":
         ctx.arc(h2, h2, h2/2, 0, 2 * Math.PI, true)
         ctx.stroke()
         break
-      case "+":
-        _horz(ctx, h, h2)
-        _vert(ctx, h, h2)
-        break
+
       case "-":
+      case "horizontal-line":
         _horz(ctx, h, h2)
         break
+
       case "|":
+      case "vertical-line":
         _vert(ctx, h, h2)
         break
+
+      case "+":
+      case "cross":
+        _horz(ctx, h, h2)
+        _vert(ctx, h, h2)
+        break
+
+      case "\"":
+      case "horizontal-dash":
+        _horz(ctx, h2, h2)
+        break
+
+      case ":":
+      case "vertical-dash":
+        _vert(ctx, h2, h2)
+        break
+
       case "/":
+      case "right-diagonal-line":
         ctx.moveTo(-h4+0.5, h)
         ctx.lineTo(h4+0.5, 0)
         ctx.stroke()
@@ -78,34 +99,63 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_n
         ctx.moveTo(3*h4+0.5, h)
         ctx.lineTo(5*h4+0.5, 0)
         ctx.stroke()
-        // ctx.moveTo(h4+0.5, 3*h4+0.5)
-        // ctx.lineTo(3*h4+0.5, h4+0.5)
         ctx.stroke()
         break
-      case "\\":
+
+        case "\\":
+        case "left-diagonal-line":
+        ctx.moveTo(h4+0.5, h)
+        ctx.lineTo(-h4+0.5, 0)
+        ctx.stroke()
+        ctx.moveTo(3*h4+0.5, h)
+        ctx.lineTo(h4+0.5, 0)
+        ctx.stroke()
+        ctx.moveTo(5*h4+0.5, h)
+        ctx.lineTo(3*h4+0.5, 0)
+        ctx.stroke()
+        ctx.stroke()
+        break
+
+      case "x":
+      case "diagonal-cross":
+        _x(ctx, h)
+        break
+
+      case ",":
+      case "right-diagonal-dash":
+        ctx.moveTo(h4+0.5, 3*h4+0.5)
+        ctx.lineTo(3*h4+0.5, h4+0.5)
+        ctx.stroke()
+        break
+
+      case "`":
+      case "left-diagonal-dash":
         ctx.moveTo(h4+0.5, h4+0.5)
         ctx.lineTo(3*h4+0.5, 3*h4+0.5)
         ctx.stroke()
         break
-      case "X":
-        _x(ctx, h)
-        break
-      case "*":
-        _x(ctx, h)
-        _horz(ctx, h, h2)
-        _vert(ctx, h, h2)
-        break
+
       case "v":
+      case "horizontal-wave":
         ctx.moveTo(0, h4)
         ctx.lineTo(h2, 3*h4)
         ctx.lineTo(h, h4)
         ctx.stroke()
         break
+
       case ">":
+      case "vertical-wave":
         ctx.moveTo(h4, 0)
         ctx.lineTo(3*h4, h2)
         ctx.lineTo(h4, h)
         ctx.stroke()
+        break
+
+      case "*":
+      case "criss-cross":
+        _x(ctx, h)
+        _horz(ctx, h, h2)
+        _vert(ctx, h, h2)
         break
     }
 
@@ -262,7 +312,7 @@ export class Hatch extends ContextProperties {
 
   readonly hatch_color: p.ColorSpec
   readonly hatch_alpha: p.NumberSpec
-  readonly hatch_number: p.NumberSpec
+  readonly hatch_scale: p.NumberSpec
   readonly hatch_pattern: p.StringSpec
   readonly hatch_weight: p.NumberSpec
 
@@ -270,11 +320,11 @@ export class Hatch extends ContextProperties {
     let value: any
     if (name == "pattern") {
       this.cache_select("hatch_color", i)
-      this.cache_select("hatch_number", i)
+      this.cache_select("hatch_scale", i)
       this.cache_select("hatch_pattern", i)
       this.cache_select("hatch_weight", i)
-      const {hatch_color, hatch_number, hatch_pattern, hatch_weight} = this.cache
-      this.cache.pattern = create_hatch_canvas(hatch_pattern, hatch_color, hatch_number, hatch_weight)
+      const {hatch_color, hatch_scale, hatch_pattern, hatch_weight} = this.cache
+      this.cache.pattern = create_hatch_canvas(hatch_pattern, hatch_color, hatch_scale, hatch_weight)
     } else
       value = super.cache_select(name, i)
 
@@ -282,7 +332,8 @@ export class Hatch extends ContextProperties {
   }
 
   set_value(ctx: Context2d): void {
-    //ctx.fillStyle   = this.fill_style_value()
+    const pattern = create_hatch_canvas(this.hatch_pattern.value(), this.hatch_color.value(), this.hatch_scale.value(), this.hatch_weight.value())
+    ctx.fillStyle = ctx.createPattern(pattern, 'repeat')!
     ctx.globalAlpha = this.hatch_alpha.value()
   }
 

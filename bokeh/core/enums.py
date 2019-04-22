@@ -98,6 +98,7 @@ __all__ = (
     'enumeration',
     'FontStyle',
     'HatchPattern',
+    'HatchPatternAbbreviation',
     'HoldPolicy',
     'HorizontalLocation',
     'JitterRandomDistribution',
@@ -251,8 +252,29 @@ Direction = enumeration("clock", "anticlock")
 #: Specify the font style for rendering text
 FontStyle = enumeration("normal", "italic", "bold", "bold italic")
 
+_hatch_patterns = (
+    (".",  "dot"),
+    ("o",  "ring"),
+    ("-",  "horizontal-line"),
+    ("|",  "vertical-line"),
+    ("+",  "cross"),
+    ('"',  "horizontal-dash"),
+    (":",  "vertical-dash"),
+    ("/",  "right-diagonal-line"),
+    ("\\", "left-diagonal-line"),
+    ("x",  "diagonal-cross"),
+    (",",  "right-diagonal-dash"),
+    ("`",  "left-diagonal-dash"),
+    ("v",  "horizontal-wave"),
+    (">",  "vertical-wave"),
+    ("*",  "criss-cross"),
+)
+
 #: Specify one of the built-in patterns for hatching fills
-HatchPattern = enumeration(*list(".o+-|/\Xv>*"))
+HatchPattern = enumeration(*list(zip(*_hatch_patterns))[1])
+
+#: Specify one of the built-in patterns for hatching fills with a one-letter abbreviation
+HatchPatternAbbreviation = enumeration(*list(zip(*_hatch_patterns))[0])
 
 #: Specify whether events should be combined or collected as-is when a Document hold is in effect
 HoldPolicy = enumeration("combine", "collect")

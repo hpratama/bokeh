@@ -67,7 +67,10 @@ log = logging.getLogger(__name__)
 # Bokeh imports
 from .enums import LineJoin, LineCap, FontStyle, TextAlign, TextBaseline
 from .has_props import HasProps
-from .properties import Color, ColorSpec, DashPattern, Enum, FontSize, FontSizeSpec, Include, Int, Float, NumberSpec, Percent, Size, String, StringSpec, value
+from .properties import (
+    Color, ColorSpec, DashPattern, Enum, FontSize, FontSizeSpec, HatchPatternSpec, HatchPatternType,
+    Include, Int, Float, NumberSpec, Percent, Size, String, value
+)
 
 #-----------------------------------------------------------------------------
 # Globals and constants
@@ -232,7 +235,7 @@ class ScalarFillProps(HasProps):
     fill_color = Color(default="gray", help=_color_help  % "fill paths")
     fill_alpha = Percent(default=1.0, help=_alpha_help)
 
-_hatch_number_help = """
+_hatch_scale_help = """
 A rough measure of the 'size' of the hatchign pattern. Generally speaking, the
 higher the number, the more spread out the pattern will be.
 """
@@ -254,8 +257,8 @@ class HatchProps(HasProps):
 
     hatch_color = ColorSpec(default="black", help=_color_help % "hatching")
     hatch_alpha = NumberSpec(default=1.0, accept_datetime=False, accept_timedelta=False, help=_alpha_help % "hatching")
-    hatch_number = NumberSpec(default=1.0, accept_datetime=False, accept_timedelta=False, help=_hatch_number_help)
-    hatch_pattern = StringSpec(default="o", help=_hatch_pattern_help)
+    hatch_scale = NumberSpec(default=12.0, accept_datetime=False, accept_timedelta=False, help=_hatch_scale_help)
+    hatch_pattern = HatchPatternSpec(default="o", help=_hatch_pattern_help)
     hatch_weight = NumberSpec(default=1.0, accept_datetime=False, accept_timedelta=False, help=_hatch_weight_help)
 
 class ScalarHatchProps(HasProps):
@@ -267,8 +270,8 @@ class ScalarHatchProps(HasProps):
 
     hatch_color = Color(default="black", help=_color_help % "hatching")
     hatch_alpha = Percent(default=1.0, help=_alpha_help % "hatching")
-    hatch_number = Size(default=12.0, help=_hatch_number_help)
-    hatch_pattern = String(default="o", help=_hatch_pattern_help)
+    hatch_scale = Size(default=12.0, help=_hatch_scale_help)
+    hatch_pattern = HatchPatternType(default="o", help=_hatch_pattern_help)
     hatch_weight = Size(default=1.0, help=_hatch_weight_help)
 
 _line_width_help = """
