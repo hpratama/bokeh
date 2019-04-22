@@ -14,6 +14,8 @@ of properties, use the mix-in classes in this module:
 
 * |FillProps| --- properties for fill color and alpha
 
+* |HatchProps| --- properties for hatching pattern, color, alpha, etc.
+
 * |LineProps| --- properties for line color, dashing, width, etc.
 
 * |TextProps| --- properties for text color, font, etc.
@@ -41,6 +43,7 @@ different usage, for more information see the docs for |Include|.
 .. |Include| replace:: :class:`~bokeh.core.properties.Include`
 
 .. |FillProps| replace:: :class:`~bokeh.core.property_mixins.FillProps`
+.. |HatchProps| replace:: :class:`~bokeh.core.property_mixins.HatchProps`
 .. |LineProps| replace:: :class:`~bokeh.core.property_mixins.LineProps`
 .. |TextProps| replace:: :class:`~bokeh.core.property_mixins.TextProps`
 
@@ -64,7 +67,7 @@ log = logging.getLogger(__name__)
 # Bokeh imports
 from .enums import LineJoin, LineCap, FontStyle, TextAlign, TextBaseline
 from .has_props import HasProps
-from .properties import Color, ColorSpec, DashPattern, Enum, FontSize, FontSizeSpec, Include, Int, Float, NumberSpec, Percent, String, value
+from .properties import Color, ColorSpec, DashPattern, Enum, FontSize, FontSizeSpec, Include, Int, Float, NumberSpec, Percent, Size, String, StringSpec, value
 
 #-----------------------------------------------------------------------------
 # Globals and constants
@@ -72,9 +75,11 @@ from .properties import Color, ColorSpec, DashPattern, Enum, FontSize, FontSizeS
 
 __all__ = (
     'FillProps',
+    'HatchProps',
     'LineProps',
     'TextProps',
     'ScalarFillProps',
+    'ScalarHatchProps',
     'ScalarLineProps',
     'ScalarTextProps',
 )
@@ -224,9 +229,47 @@ class ScalarFillProps(HasProps):
 
     '''
 
-    fill_color = Color(default="gray", help=_color_help)
+    fill_color = Color(default="gray", help=_color_help  % "fill paths")
     fill_alpha = Percent(default=1.0, help=_alpha_help)
 
+_hatch_number_help = """
+A rough measure of the 'size' of the hatchign pattern. Generally speaking, the
+higher the number, the more spread out the pattern will be.
+"""
+
+_hatch_pattern_help = """
+Built-in patterns are: . o + - | / \ X v > * H I N Z
+"""
+
+_hatch_weight_help = """
+A value for line-strokes used in hatching.
+"""
+
+class HatchProps(HasProps):
+    ''' Properties relevant to rendering fill regions.
+
+    Mirrors the BokehJS ``properties.Hatch`` class.
+
+    '''
+
+    hatch_color = ColorSpec(default="black", help=_color_help % "hatching")
+    hatch_alpha = NumberSpec(default=1.0, accept_datetime=False, accept_timedelta=False, help=_alpha_help % "hatching")
+    hatch_number = NumberSpec(default=1.0, accept_datetime=False, accept_timedelta=False, help=_hatch_number_help)
+    hatch_pattern = StringSpec(default="o", help=_hatch_pattern_help)
+    hatch_weight = NumberSpec(default=1.0, accept_datetime=False, accept_timedelta=False, help=_hatch_weight_help)
+
+class ScalarHatchProps(HasProps):
+    ''' Properties relevant to rendering fill regions.
+
+    Mirrors the BokehJS ``properties.Hatch`` class.
+
+    '''
+
+    hatch_color = Color(default="black", help=_color_help % "hatching")
+    hatch_alpha = Percent(default=1.0, help=_alpha_help % "hatching")
+    hatch_number = Size(default=12.0, help=_hatch_number_help)
+    hatch_pattern = String(default="o", help=_hatch_pattern_help)
+    hatch_weight = Size(default=1.0, help=_hatch_weight_help)
 
 _line_width_help = """
 Stroke width in units of pixels.

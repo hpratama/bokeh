@@ -8,6 +8,110 @@ import {LineJoin, LineCap, FontStyle, TextAlign, TextBaseline} from "./enums"
 import {HasProps} from "./has_props"
 import {ColumnarDataSource} from "models/sources/columnar_data_source"
 
+function _horz(ctx: CanvasRenderingContext2D, h: number, h2: number): void {
+  ctx.moveTo(0, h2+0.5)
+  ctx.lineTo(h, h2+0.5)
+  ctx.stroke()
+}
+
+function _vert(ctx: CanvasRenderingContext2D, h: number, h2: number): void {
+  ctx.moveTo(h2+0.5, 0)
+  ctx.lineTo(h2+0.5, h)
+  ctx.stroke()
+}
+
+function _x(ctx: CanvasRenderingContext2D, h: number): void {
+  ctx.moveTo(0, h)
+  ctx.lineTo(h, 0)
+  ctx.stroke()
+  ctx.moveTo(0, 0)
+  ctx.lineTo(h, h)
+  ctx.stroke()
+}
+
+function _get_canvas(size: number): HTMLCanvasElement {
+  const canvas = document.createElement('canvas')
+  canvas.width = size
+  canvas.height = size
+  return canvas
+}
+
+function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_number: number, hatch_weight:number ): HTMLCanvasElement {
+    const h = hatch_number
+    const h2 = h / 2
+    const h4 = h2 / 2
+
+    const canvas = _get_canvas(hatch_number)
+
+    const ctx = canvas.getContext("2d")!
+    ctx.strokeStyle = hatch_color
+    ctx.lineCap="square"
+    ctx.fillStyle = hatch_color
+    ctx.lineWidth = hatch_weight
+
+    switch (hatch_pattern) {
+      case ".":
+        ctx.arc(h2, h2, h2/2, 0, 2 * Math.PI, true)
+        ctx.fill()
+        break
+      case "o":
+        ctx.arc(h2, h2, h2/2, 0, 2 * Math.PI, true)
+        ctx.stroke()
+        break
+      case "+":
+        _horz(ctx, h, h2)
+        _vert(ctx, h, h2)
+        break
+      case "-":
+        _horz(ctx, h, h2)
+        break
+      case "|":
+        _vert(ctx, h, h2)
+        break
+      case "/":
+        ctx.moveTo(-h4+0.5, h)
+        ctx.lineTo(h4+0.5, 0)
+        ctx.stroke()
+        ctx.moveTo(h4+0.5, h)
+        ctx.lineTo(3*h4+0.5, 0)
+        ctx.stroke()
+        ctx.moveTo(3*h4+0.5, h)
+        ctx.lineTo(5*h4+0.5, 0)
+        ctx.stroke()
+        // ctx.moveTo(h4+0.5, 3*h4+0.5)
+        // ctx.lineTo(3*h4+0.5, h4+0.5)
+        ctx.stroke()
+        break
+      case "\\":
+        ctx.moveTo(h4+0.5, h4+0.5)
+        ctx.lineTo(3*h4+0.5, 3*h4+0.5)
+        ctx.stroke()
+        break
+      case "X":
+        _x(ctx, h)
+        break
+      case "*":
+        _x(ctx, h)
+        _horz(ctx, h, h2)
+        _vert(ctx, h, h2)
+        break
+      case "v":
+        ctx.moveTo(0, h4)
+        ctx.lineTo(h2, 3*h4)
+        ctx.lineTo(h, h4)
+        ctx.stroke()
+        break
+      case ">":
+        ctx.moveTo(h4, 0)
+        ctx.lineTo(3*h4, h2)
+        ctx.lineTo(h4, h)
+        ctx.stroke()
+        break
+    }
+
+    return canvas
+}
+
 export abstract class ContextProperties {
 
   // prototype {
@@ -154,6 +258,57 @@ export class Fill extends ContextProperties {
 
 Fill.prototype.attrs = Object.keys(mixins.fill())
 
+export class Hatch extends ContextProperties {
+
+  readonly hatch_color: p.ColorSpec
+  readonly hatch_alpha: p.NumberSpec
+  readonly hatch_number: p.NumberSpec
+  readonly hatch_pattern: p.StringSpec
+  readonly hatch_weight: p.NumberSpec
+
+  cache_select(name: string, i: number): any {
+    let value: any
+    if (name == "pattern") {
+      this.cache_select("hatch_color", i)
+      this.cache_select("hatch_number", i)
+      this.cache_select("hatch_pattern", i)
+      this.cache_select("hatch_weight", i)
+      const {hatch_color, hatch_number, hatch_pattern, hatch_weight} = this.cache
+      this.cache.pattern = create_hatch_canvas(hatch_pattern, hatch_color, hatch_number, hatch_weight)
+    } else
+      value = super.cache_select(name, i)
+
+    return value
+  }
+
+  set_value(ctx: Context2d): void {
+    //ctx.fillStyle   = this.fill_style_value()
+    ctx.globalAlpha = this.hatch_alpha.value()
+  }
+
+  get doit(): boolean {
+    return !(this.hatch_color.spec.value === null ||
+             this.hatch_alpha.spec.value == 0 ||
+             this.hatch_pattern.spec.value === null)
+  }
+
+  protected _set_vectorize(ctx: Context2d, i: number): void {
+    this.cache_select("pattern", i)
+    ctx.fillStyle = ctx.createPattern(this.cache.pattern, 'repeat')!
+
+    this.cache_select("hatch_alpha", i)
+    if (ctx.globalAlpha !== this.cache.hatch_alpha)
+      ctx.globalAlpha = this.cache.hatch_alpha
+  }
+
+  color_value(): string {
+    const [r, g, b, a] = color2rgba(this.hatch_color.value(), this.hatch_alpha.value())
+    return `rgba(${r*255},${g*255},${b*255},${a})`
+  }
+}
+
+Hatch.prototype.attrs = Object.keys(mixins.hatch())
+
 export class Text extends ContextProperties {
 
   readonly text_font:        p.Font
@@ -237,9 +392,10 @@ export class Visuals {
       const [name, prefix=""] = mixin.split(":")
       let cls: Class<ContextProperties>
       switch (name) {
-        case "line": cls = Line; break
-        case "fill": cls = Fill; break
-        case "text": cls = Text; break
+        case "line":  cls = Line;  break
+        case "fill":  cls = Fill;  break
+        case "hatch": cls = Hatch; break
+        case "text":  cls = Text;  break
         default:
           throw new Error(`unknown visual: ${name}`)
       }

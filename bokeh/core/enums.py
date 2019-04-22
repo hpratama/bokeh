@@ -97,6 +97,7 @@ __all__ = (
     'Enumeration',
     'enumeration',
     'FontStyle',
+    'HatchPattern',
     'HoldPolicy',
     'HorizontalLocation',
     'JitterRandomDistribution',
@@ -249,6 +250,9 @@ Direction = enumeration("clock", "anticlock")
 
 #: Specify the font style for rendering text
 FontStyle = enumeration("normal", "italic", "bold", "bold italic")
+
+#: Specify one of the built-in patterns for hatching fills
+HatchPattern = enumeration(*list(".o+-|/\Xv>*"))
 
 #: Specify whether events should be combined or collected as-is when a Document hold is in effect
 HoldPolicy = enumeration("combine", "collect")
