@@ -62,7 +62,7 @@ def check_fill_properties(model, prefix="", fill_color=Color.gray, fill_alpha=1.
     assert getattr(model, prefix + "fill_color") == fill_color
     assert getattr(model, prefix + "fill_alpha") == fill_alpha
 
-def check_hatch_properties(model, prefix="", hatch_color=Color.black, hatch_alpha=1.0, hatch_pattern="o", hatch_scale=12.0, hatch_weight=1.0):
+def check_hatch_properties(model, prefix="", hatch_color=Color.black, hatch_alpha=1.0, hatch_pattern=None, hatch_scale=12.0, hatch_weight=1.0):
     assert getattr(model, prefix + "hatch_color") == hatch_color
     assert getattr(model, prefix + "hatch_alpha") == hatch_alpha
     assert getattr(model, prefix + "hatch_pattern") == hatch_pattern

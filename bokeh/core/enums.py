@@ -253,6 +253,7 @@ Direction = enumeration("clock", "anticlock")
 FontStyle = enumeration("normal", "italic", "bold", "bold italic")
 
 _hatch_patterns = (
+    (" ",  "blank"),
     (".",  "dot"),
     ("o",  "ring"),
     ("-",  "horizontal-line"),

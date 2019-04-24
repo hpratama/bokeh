@@ -136,8 +136,8 @@ export const fill = (prefix: string = "") => _gen_mixin(_fill_mixin, prefix)
 const _hatch_mixin = {
   hatch_color:   [ p.ColorSpec,  'black' ],
   hatch_alpha:   [ p.NumberSpec, 1.0     ],
-  hatch_scale:  [ p.NumberSpec, 12.0    ],
-  hatch_pattern: [ p.StringSpec, "o"     ],
+  hatch_scale:   [ p.NumberSpec, 12.0    ],
+  hatch_pattern: [ p.StringSpec, null    ],
   hatch_weight:  [ p.NumberSpec, 1.0     ],
 }
 

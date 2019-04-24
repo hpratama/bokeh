@@ -258,7 +258,7 @@ class HatchProps(HasProps):
     hatch_color = ColorSpec(default="black", help=_color_help % "hatching")
     hatch_alpha = NumberSpec(default=1.0, accept_datetime=False, accept_timedelta=False, help=_alpha_help % "hatching")
     hatch_scale = NumberSpec(default=12.0, accept_datetime=False, accept_timedelta=False, help=_hatch_scale_help)
-    hatch_pattern = HatchPatternSpec(default="o", help=_hatch_pattern_help)
+    hatch_pattern = HatchPatternSpec(default=None, help=_hatch_pattern_help)
     hatch_weight = NumberSpec(default=1.0, accept_datetime=False, accept_timedelta=False, help=_hatch_weight_help)
 
 class ScalarHatchProps(HasProps):
@@ -271,7 +271,7 @@ class ScalarHatchProps(HasProps):
     hatch_color = Color(default="black", help=_color_help % "hatching")
     hatch_alpha = Percent(default=1.0, help=_alpha_help % "hatching")
     hatch_scale = Size(default=12.0, help=_hatch_scale_help)
-    hatch_pattern = HatchPatternType(default="o", help=_hatch_pattern_help)
+    hatch_pattern = HatchPatternType(default=None, help=_hatch_pattern_help)
     hatch_weight = Size(default=1.0, help=_hatch_weight_help)
 
 _line_width_help = """

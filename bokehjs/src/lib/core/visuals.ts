@@ -50,6 +50,12 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_s
     ctx.lineWidth = hatch_weight
 
     switch (hatch_pattern) {
+      // we should not need these if code conditions on hatch.doit, but
+      // include them here just for completeness
+      case " ":
+      case "blank":
+        break
+
       case ".":
       case "dot":
         ctx.arc(h2, h2, h2/2, 0, 2 * Math.PI, true)
@@ -340,6 +346,8 @@ export class Hatch extends ContextProperties {
   get doit(): boolean {
     return !(this.hatch_color.spec.value === null ||
              this.hatch_alpha.spec.value == 0 ||
+             this.hatch_pattern.spec.value == " " ||
+             this.hatch_pattern.spec.value == "blank" ||
              this.hatch_pattern.spec.value === null)
   }
 

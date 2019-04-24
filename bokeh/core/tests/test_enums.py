@@ -111,13 +111,13 @@ class Test_bce(object):
 
     def test_HatchPattern(self):
         assert tuple(bce.HatchPattern) == (
-            "dot", "ring", "horizontal-line", "vertical-line", "cross", "horizontal-dash", "vertical-dash",
+            "blank", "dot", "ring", "horizontal-line", "vertical-line", "cross", "horizontal-dash", "vertical-dash",
             "right-diagonal-line", "left-diagonal-line", "diagonal-cross", "right-diagonal-dash", "left-diagonal-dash",
             "horizontal-wave", "vertical-wave", "criss-cross"
         )
 
     def test_HatchPatternAbbreviation(self):
-        assert tuple(bce.HatchPatternAbbreviation) ==('.', 'o', '-', '|', '+', '"', ':', '/', '\\', 'x', ',', '`', 'v', '>', '*')
+        assert tuple(bce.HatchPatternAbbreviation) ==(' ', '.', 'o', '-', '|', '+', '"', ':', '/', '\\', 'x', ',', '`', 'v', '>', '*')
 
     def test_HoldPolicy(self):
         assert tuple(bce.HoldPolicy) == ("combine", "collect")
