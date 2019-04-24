@@ -24,6 +24,7 @@ export type Hatch = {
   hatch_scale: p.Property<number>
   hatch_pattern: p.Property<string>
   hatch_weight: p.Property<number>
+  hatch_extra: p.Any
 }
 
 export type Text = {
@@ -58,6 +59,7 @@ export type HatchScalar = {
   hatch_scale: p.ScalarSpec<number>
   hatch_pattern: p.ScalarSpec<string>
   hatch_weight: p.ScalarSpec<number>
+  hatch_extra: p.Any
 }
 
 export type TextScalar = {
@@ -139,6 +141,7 @@ const _hatch_mixin = {
   hatch_scale:   [ p.NumberSpec, 12.0    ],
   hatch_pattern: [ p.StringSpec, null    ],
   hatch_weight:  [ p.NumberSpec, 1.0     ],
+  hatch_extra:   [ p.Any,        {}      ],
 }
 
 export const hatch = (prefix: string = "") => _gen_mixin(_hatch_mixin, prefix)

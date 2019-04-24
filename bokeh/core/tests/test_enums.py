@@ -19,6 +19,7 @@ import pytest ; pytest
 # Standard library imports
 
 # External imports
+import six
 
 # Bokeh imports
 from bokeh.colors import named
@@ -62,6 +63,7 @@ class Test_enumeration(object):
             assert x in e
         assert "junk" not in e
 
+    @pytest.mark.skipif(six.PY2, reason="Unimportant uicode silliness, py2 going away soon")
     def test_quote(self):
         e = bce.enumeration("foo", "bar", "baz", quote=True)
         assert isinstance(e, bce.Enumeration)

@@ -329,8 +329,13 @@ export class Hatch extends ContextProperties {
       this.cache_select("hatch_scale", i)
       this.cache_select("hatch_pattern", i)
       this.cache_select("hatch_weight", i)
-      const {hatch_color, hatch_scale, hatch_pattern, hatch_weight} = this.cache
-      this.cache.pattern = create_hatch_canvas(hatch_pattern, hatch_color, hatch_scale, hatch_weight)
+      const {hatch_color, hatch_scale, hatch_pattern, hatch_weight, hatch_extra} = this.cache
+      if (hatch_extra != null && hatch_extra.hasOwnProperty(hatch_pattern) ) {
+        const custom = hatch_extra[hatch_pattern]
+        this.cache.pattern = custom.execute(custom, {hatch_pattern, hatch_color, hatch_scale, hatch_weight})
+      } else {
+        this.cache.pattern = create_hatch_canvas(hatch_pattern, hatch_color, hatch_scale, hatch_weight)
+      }
     } else
       value = super.cache_select(name, i)
 
