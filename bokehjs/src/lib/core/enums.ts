@@ -35,6 +35,18 @@ export const Distribution: Distribution[] = ["uniform", "normal"]
 export type FontStyle = "normal" | "italic" | "bold" | "bold italic"
 export const FontStyle: FontStyle[] = ["normal", "italic", "bold", "bold italic"]
 
+export type HatchPatternType =
+  'blank' | 'dot' | 'ring' | 'horizontal-line' | 'vertical-line' | 'cross' | 'horizontal-dash' |
+  'vertical-dash' | 'right-diagonal-line' | 'left-diagonal-line' | 'diagonal-cross' |
+  'right-diagonal-dash' | 'left-diagonal-dash' | 'horizontal-wave' | 'vertical-wave' | 'criss-cross' |
+  ' ' | '.' | 'o' | '-' | '|' | '+' | '"' | ':' | '/' | '\\' | 'x' | ',' | '`' | 'v' | '>' | '*'
+export const HatchPatternType: HatchPatternType[] = [
+  'blank', 'dot', 'ring', 'horizontal-line', 'vertical-line', 'cross', 'horizontal-dash',
+  'vertical-dash', 'right-diagonal-line', 'left-diagonal-line', 'diagonal-cross',
+  'right-diagonal-dash', 'left-diagonal-dash', 'horizontal-wave', 'vertical-wave', 'criss-cross',
+  ' ', '.', 'o', '-', '|', '+', '"', ':', '/', '\\', 'x', ',', '`', 'v', '>', '*',
+]
+
 export type HTTPMethod = "POST" | "GET"
 export const HTTPMethod: HTTPMethod[] = ["POST", "GET"]
 

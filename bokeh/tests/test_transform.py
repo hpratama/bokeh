@@ -35,6 +35,7 @@ ALL = (
     'cumsum',
     'dodge',
     'factor_cmap',
+    'factor_hatch',
     'factor_mark',
     'jitter',
     'linear_cmap',
