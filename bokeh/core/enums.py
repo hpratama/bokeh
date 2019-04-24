@@ -163,7 +163,10 @@ class Enumeration(object):
         return value in self._values
 
     def __str__(self):
-        return "Enumeration(%s)" % ", ".join(self._values)
+        if self._quote:
+            return "Enumeration(%s)" % ", ".join(repr(x) for x in self._values)
+        else:
+            return "Enumeration(%s)" % ", ".join(self._values)
 
     def __len__(self):
         return len(self._values)
@@ -192,6 +195,10 @@ def enumeration(*values, **kwargs):
         case_sensitive (bool, optional) :
             Whether validation should consider case or not (default: True)
 
+        quote (bool, optional):
+            Whther values should be quoted in the string representations
+            (default: False)
+
     Raises:
         ValueError if values empty, if any value is not a string or not unique
 
@@ -210,6 +217,7 @@ def enumeration(*values, **kwargs):
         "_values": list(values),
         "_default": values[0],
         "_case_sensitive": kwargs.get("case_sensitive", True),
+        "_quote": kwargs.get("quote", False),
     })
 
     return type(str("Enumeration"), (Enumeration,), attrs)()
@@ -275,7 +283,28 @@ _hatch_patterns = (
 HatchPattern = enumeration(*list(zip(*_hatch_patterns))[1])
 
 #: Specify one of the built-in patterns for hatching fills with a one-letter abbreviation
-HatchPatternAbbreviation = enumeration(*list(zip(*_hatch_patterns))[0])
+#:
+#: The abbreviations are mapped as follows:
+#:
+#: .. code-block:: none
+#:
+#:     " "  :  blank
+#:     "."  :  dot
+#:     "o"  :  ring
+#:     "-"  :  horizontal-line
+#:     "|"  :  vertical-line
+#:     "+"  :  cross
+#:     '"'  :  horizontal-dash
+#:     ":"  :  vertical-dash
+#:     "/"  :  right-diagonal-line
+#:     "\\" :  left-diagonal-line
+#:     "x"  :  diagonal-cross
+#:     ","  :  right-diagonal-dash
+#:     "`"  :  left-diagonal-dash
+#:     "v"  :  horizontal-wave
+#:     ">"  :  vertical-wave
+#:     "*"  :  criss-cross
+HatchPatternAbbreviation = enumeration(*list(zip(*_hatch_patterns))[0], quote=True)
 
 #: Specify whether events should be combined or collected as-is when a Document hold is in effect
 HoldPolicy = enumeration("combine", "collect")

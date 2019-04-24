@@ -167,6 +167,7 @@ class CategoricalPatternMapper(CategoricalMapper):
     will be mapped to ``default_value``.
 
     Added in version 1.1.1
+
     '''
 
     patterns = Seq(HatchPatternType, help="""

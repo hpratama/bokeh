@@ -814,7 +814,7 @@ class Patch(XYGlyph):
     """)
 
     hatch_props = Include(ScalarHatchProps, use_prefix=False, help="""
-    The %s values for the horizontal bars.
+    The %s values for the patch.
     """)
 
 class Patches(Glyph):
@@ -858,7 +858,7 @@ class Patches(Glyph):
     """)
 
     hatch_props = Include(HatchProps, use_prefix=False, help="""
-    The %s values for the horizontal bars.
+    The %s values for the patches.
     """)
 
 class Quad(Glyph):

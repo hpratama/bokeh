@@ -62,6 +62,15 @@ class Test_enumeration(object):
             assert x in e
         assert "junk" not in e
 
+    def test_quote(self):
+        e = bce.enumeration("foo", "bar", "baz", quote=True)
+        assert isinstance(e, bce.Enumeration)
+        assert str(e) == 'Enumeration("foo", "bar", "baz")' or str(e) == "Enumeration('foo', 'bar', 'baz')"
+        assert [x for x in e] == ["foo", "bar", "baz"]
+        for x in ["foo", "bar", "baz"]:
+            assert x in e
+        assert "junk" not in e
+
     def test_default(self):
         # this is private but used by properties
         e = bce.enumeration("foo", "bar", "baz")

@@ -310,11 +310,11 @@ class HatchPatternSpec(DataSpec):
 
     .. code-block:: python
 
-        m.font_size = "circle" # value
+        m.font_size = "."    # value
 
-        m.font_size = "square" # value
+        m.font_size = "ring" # value
 
-        m.font_size = "foo"    # field
+        m.font_size = "foo"  # field
 
     '''
 

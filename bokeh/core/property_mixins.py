@@ -65,7 +65,7 @@ log = logging.getLogger(__name__)
 # External imports
 
 # Bokeh imports
-from .enums import LineJoin, LineCap, FontStyle, TextAlign, TextBaseline
+from .enums import HatchPattern, HatchPatternAbbreviation, LineJoin, LineCap, FontStyle, TextAlign, TextBaseline
 from .has_props import HasProps
 from .properties import (
     Color, ColorSpec, DashPattern, Enum, FontSize, FontSizeSpec, HatchPatternSpec, HatchPatternType,
@@ -236,16 +236,22 @@ class ScalarFillProps(HasProps):
     fill_alpha = Percent(default=1.0, help=_alpha_help)
 
 _hatch_scale_help = """
-A rough measure of the 'size' of the hatchign pattern. Generally speaking, the
+A rough measure of the 'size' of the hatching pattern. Generally speaking, the
 higher the number, the more spread out the pattern will be.
 """
 
 _hatch_pattern_help = """
-Built-in patterns are: . o + - | / \ X v > * H I N Z
-"""
+Built-in patterns are can either be specified as long names:
+
+%s
+
+or as one-letter abbreviations:
+
+%s
+""" % (", ". join(HatchPattern), ", ". join(repr(x) for x in HatchPatternAbbreviation))
 
 _hatch_weight_help = """
-A value for line-strokes used in hatching.
+A width value for line-strokes used in hatching.
 """
 
 class HatchProps(HasProps):

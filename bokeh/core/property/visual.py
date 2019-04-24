@@ -121,7 +121,7 @@ class FontSize(String):
                 raise ValueError(msg)
 
 class HatchPatternType(Either):
-    ''' Accept default fill hatching specifications.
+    ''' Accept built-in fill hatching specifications.
 
     Accepts either "long" names, e.g. "horizontal-wave" or the single letter
     abbreviations, e.g. "v"
