@@ -8,19 +8,19 @@ import {LineJoin, LineCap, FontStyle, TextAlign, TextBaseline} from "./enums"
 import {HasProps} from "./has_props"
 import {ColumnarDataSource} from "models/sources/columnar_data_source"
 
-function _horz(ctx: CanvasRenderingContext2D, h: number, h2: number): void {
+function _horz(ctx: Context2d , h: number, h2: number): void {
   ctx.moveTo(0, h2+0.5)
   ctx.lineTo(h, h2+0.5)
   ctx.stroke()
 }
 
-function _vert(ctx: CanvasRenderingContext2D, h: number, h2: number): void {
+function _vert(ctx: Context2d , h: number, h2: number): void {
   ctx.moveTo(h2+0.5, 0)
   ctx.lineTo(h2+0.5, h)
   ctx.stroke()
 }
 
-function _x(ctx: CanvasRenderingContext2D, h: number): void {
+function _x(ctx: Context2d , h: number): void {
   ctx.moveTo(0, h)
   ctx.lineTo(h, 0)
   ctx.stroke()
@@ -43,7 +43,7 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_s
 
     const canvas = _get_canvas(hatch_scale)
 
-    const ctx = canvas.getContext("2d")!
+    const ctx = canvas.getContext("2d")! as Context2d
     ctx.strokeStyle = hatch_color
     ctx.lineCap="square"
     ctx.fillStyle = hatch_color
@@ -69,12 +69,12 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_s
         break
 
       case "-":
-      case "horizontal-line":
+      case "horizontal_line":
         _horz(ctx, h, h2)
         break
 
       case "|":
-      case "vertical-line":
+      case "vertical_line":
         _vert(ctx, h, h2)
         break
 
@@ -85,12 +85,12 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_s
         break
 
       case "\"":
-      case "horizontal-dash":
+      case "horizontal_dash":
         _horz(ctx, h2, h2)
         break
 
       case ":":
-      case "vertical-dash":
+      case "vertical_dash":
         _vert(ctx, h2, h2)
         break
 
@@ -108,7 +108,7 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_s
         break
 
       case "/":
-      case "right-diagonal-line":
+      case "right_diagonal_line":
         ctx.moveTo(-h4+0.5, h)
         ctx.lineTo(h4+0.5, 0)
         ctx.stroke()
@@ -122,7 +122,7 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_s
         break
 
         case "\\":
-        case "left-diagonal-line":
+        case "left_diagonal_line":
         ctx.moveTo(h4+0.5, h)
         ctx.lineTo(-h4+0.5, 0)
         ctx.stroke()
@@ -136,26 +136,26 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_s
         break
 
       case "x":
-      case "diagonal-cross":
+      case "diagonal_cross":
         _x(ctx, h)
         break
 
       case ",":
-      case "right-diagonal-dash":
+      case "right_diagonal_dash":
         ctx.moveTo(h4+0.5, 3*h4+0.5)
         ctx.lineTo(3*h4+0.5, h4+0.5)
         ctx.stroke()
         break
 
       case "`":
-      case "left-diagonal-dash":
+      case "left_diagonal_dash":
         ctx.moveTo(h4+0.5, h4+0.5)
         ctx.lineTo(3*h4+0.5, 3*h4+0.5)
         ctx.stroke()
         break
 
       case "v":
-      case "horizontal-wave":
+      case "horizontal_wave":
         ctx.moveTo(0, h4)
         ctx.lineTo(h2, 3*h4)
         ctx.lineTo(h, h4)
@@ -163,7 +163,7 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_s
         break
 
       case ">":
-      case "vertical-wave":
+      case "vertical_wave":
         ctx.moveTo(h4, 0)
         ctx.lineTo(3*h4, h2)
         ctx.lineTo(h4, h)
@@ -171,7 +171,7 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_s
         break
 
       case "*":
-      case "criss-cross":
+      case "criss_cross":
         _x(ctx, h)
         _horz(ctx, h, h2)
         _vert(ctx, h, h2)

@@ -14,7 +14,7 @@ export class PatchView extends XYGlyphView {
   model: Patch
   visuals: Patch.Visuals
 
-  protected _inner_loop(ctx: Context2d, indices: number[], sx: Arrayable<number>, sy: Arrayable<number>, func: any): void {
+  protected _inner_loop(ctx: Context2d, indices: number[], sx: Arrayable<number>, sy: Arrayable<number>, func: (this: Context2d) => void): void {
     for (const i of indices) {
       if (i == 0) {
         ctx.beginPath()

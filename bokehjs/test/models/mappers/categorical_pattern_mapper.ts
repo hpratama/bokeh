@@ -13,17 +13,17 @@ describe("CategoricalPatternMapper module", () => {
     describe("with 1-level data factors", () => {
 
       it("should map factors to patterns with default start/end", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line"]
+        const patterns: Patterns = ["+", "dot", "vertical_line"]
         const cm = new CategoricalPatternMapper({
           patterns,
           factors: ["a", "b", "c"],
         })
         const vals = cm.v_compute(["c", "b", "a", "b"])
-        expect(vals).to.be.deep.equal(["vertical-line", "dot", "+", "dot"])
+        expect(vals).to.be.deep.equal(["vertical_line", "dot", "+", "dot"])
       })
 
       it("should map data unknown data to default_value value", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line"]
+        const patterns: Patterns = ["+", "dot", "vertical_line"]
         const cm = new CategoricalPatternMapper({
           patterns,
           default_value: " ",
@@ -45,20 +45,20 @@ describe("CategoricalPatternMapper module", () => {
       })
 
       it("should disregard any start or end values", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line"]
+        const patterns: Patterns = ["+", "dot", "vertical_line"]
         const factors: F1[] = ["a", "b", "c"]
 
         const cm0 = new CategoricalPatternMapper({patterns, factors, start: 1})
         const vals0 = cm0.v_compute(["c", "b", "a", "b"])
-        expect(vals0).to.be.deep.equal(["vertical-line", "dot", "+", "dot"])
+        expect(vals0).to.be.deep.equal(["vertical_line", "dot", "+", "dot"])
 
         const cm1 = new CategoricalPatternMapper({patterns, factors, end: 2})
         const vals1 = cm1.v_compute(["c", "b", "a", "b"])
-        expect(vals1).to.be.deep.equal(["vertical-line", "dot", "+", "dot"])
+        expect(vals1).to.be.deep.equal(["vertical_line", "dot", "+", "dot"])
 
         const cm2 = new CategoricalPatternMapper({patterns, factors, start: 1, end: 2})
         const vals2 = cm2.v_compute(["c", "b", "a", "b"])
-        expect(vals2).to.be.deep.equal(["vertical-line", "dot", "+", "dot"])
+        expect(vals2).to.be.deep.equal(["vertical_line", "dot", "+", "dot"])
       })
     })
   })
@@ -68,7 +68,7 @@ describe("CategoricalPatternMapper module", () => {
     describe("and 1-level patterns factors", () => {
 
       it("should map factors to patterns with start=0, end=1", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+        const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
         const factors: F2[] = [["a", "1"], ["d", "2"], ["b", "3"], ["c", "4"]]
         const cm = new CategoricalPatternMapper({
           patterns,
@@ -80,7 +80,7 @@ describe("CategoricalPatternMapper module", () => {
       })
 
       it("should map factors to patterns with start=1, end=2", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+        const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
         const factors: F2[] = [["a", "1"], ["d", "2"], ["b", "3"], ["c", "4"]]
         const cm = new CategoricalPatternMapper({
           patterns,
@@ -94,7 +94,7 @@ describe("CategoricalPatternMapper module", () => {
 
       for (const [i, j] of [[0, 2]]) {
         it(`should map everything to default_value with start=${i}, end=${j}`, () => {
-          const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+          const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
           const factors: F2[] = [["a", "1"], ["d", "2"], ["b", "3"], ["c", "4"]]
 
           const cm0 = new CategoricalPatternMapper({
@@ -123,7 +123,7 @@ describe("CategoricalPatternMapper module", () => {
     describe("and 2-level patterns factors", () => {
 
       it("should map factors to patterns with default start/end", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+        const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
         const factors: F2[] = [["a", "1"], ["d", "2"], ["b", "3"], ["c", "4"]]
         const cm = new CategoricalPatternMapper({patterns, factors})
 
@@ -132,7 +132,7 @@ describe("CategoricalPatternMapper module", () => {
       })
 
       it("should map factors to patterns with start=0, end=2", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+        const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
         const factors: F2[] = [["a", "1"], ["d", "2"], ["b", "3"], ["c", "4"]]
         const cm = new CategoricalPatternMapper({patterns, factors, start: 0, end: 2})
 
@@ -142,7 +142,7 @@ describe("CategoricalPatternMapper module", () => {
 
       for (const [i, j] of [[0, 1], [1, 2]]) {
         it(`should map everything to default_value with start=${i}, end=${j}`, () => {
-          const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+          const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
           const factors: F2[] = [["a", "1"], ["d", "2"], ["b", "3"], ["c", "4"]]
           const cm = new CategoricalPatternMapper({patterns, factors, start: i, end: j})
 
@@ -158,7 +158,7 @@ describe("CategoricalPatternMapper module", () => {
     describe("and 1-level patterns factors", () => {
 
       it("should map factors to patterns with start=0, end=1", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+        const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
         const factors: F3[] = [["a", "1", "foo"], ["d", "2", "foo"], ["b", "2", "baz"], ["c", "1", "bar"]]
         const cm = new CategoricalPatternMapper({
           patterns,
@@ -170,7 +170,7 @@ describe("CategoricalPatternMapper module", () => {
       })
 
       it("should map factors to patterns with start=1, end=2", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+        const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
         const factors: F3[] = [["a", "1", "foo"], ["a", "2", "foo"], ["b", "3", "baz"], ["c", "4", "bar"]]
         const cm = new CategoricalPatternMapper({
           patterns,
@@ -183,7 +183,7 @@ describe("CategoricalPatternMapper module", () => {
       })
 
       it("should map factors to patterns with start=2, end=3", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+        const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
         const factors: F3[] = [["a", "1", "foo"], ["a", "2", "quux"], ["b", "2", "baz"], ["c", "1", "bar"]]
         const cm = new CategoricalPatternMapper({
           patterns,
@@ -197,7 +197,7 @@ describe("CategoricalPatternMapper module", () => {
 
       for (const [i, j] of [[0, 2], [0, 3], [1, 3]]) {
         it(`should map everything to default_value with start=${i}, end=${j}`, () => {
-          const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+          const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
           const factors: F3[] = [["a", "1", "foo"], ["a", "2", "foo"], ["b", "2", "baz"], ["c", "1", "bar"]]
 
           const cm0 = new CategoricalPatternMapper({
@@ -245,7 +245,7 @@ describe("CategoricalPatternMapper module", () => {
     describe("and 2-level patterns factors", () => {
 
       it("should map factors to patterns with start=0, end=2", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+        const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
         const factors: F3[] = [["a", "1", "foo"], ["a", "2", "foo"], ["b", "2", "baz"], ["c", "1", "bar"]]
         const cm = new CategoricalPatternMapper({
           patterns,
@@ -257,7 +257,7 @@ describe("CategoricalPatternMapper module", () => {
       })
 
       it("should map factors to patterns with start=1, end=3", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+        const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
         const factors: F3[] = [["a", "1", "foo"], ["a", "2", "foo"], ["b", "2", "baz"], ["c", "1", "bar"]]
         const cm = new CategoricalPatternMapper({
           patterns,
@@ -272,7 +272,7 @@ describe("CategoricalPatternMapper module", () => {
 
       for (const [i, j] of [[0, 1], [0, 3], [1, 2], [2, 3]]) {
         it(`should map everything to default_value with start=${i}, end=${j}`, () => {
-          const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+          const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
           const factors: F3[] = [["a", "1", "foo"], ["a", "2", "foo"], ["b", "2", "baz"], ["c", "1", "bar"]]
 
           const cm0 = new CategoricalPatternMapper({
@@ -319,7 +319,7 @@ describe("CategoricalPatternMapper module", () => {
     describe("and 3-level patterns factors", () => {
 
       it("should map factors to patterns with default start/end", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+        const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
         const factors: F3[] = [["a", "1", "foo"], ["a", "2", "foo"], ["b", "2", "foo"], ["c", "1", "bar"]]
         const cm = new CategoricalPatternMapper({patterns, factors})
         const vals = cm.v_compute(factors)
@@ -327,7 +327,7 @@ describe("CategoricalPatternMapper module", () => {
       })
 
       it("should map factors to patterns with start=0, end=3", () => {
-        const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+        const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
         const factors: F3[] = [["a", "1", "foo"], ["a", "2", "foo"], ["b", "2", "foo"], ["c", "1", "bar"]]
         const cm = new CategoricalPatternMapper({patterns, factors, start: 0, end: 3})
         const vals = cm.v_compute(factors)
@@ -336,7 +336,7 @@ describe("CategoricalPatternMapper module", () => {
 
       for (const [i, j] of [[0, 1], [0, 2], [1, 2], [1, 3], [2, 3]]) {
         it(`should map everything to default_value with start=${i}, end=${j}`, () => {
-          const patterns: Patterns = ["+", "dot", "vertical-line", "*"]
+          const patterns: Patterns = ["+", "dot", "vertical_line", "*"]
           const factors: F3[] = [["a", "1", "foo"], ["a", "2", "foo"], ["b", "2", "foo"], ["c", "1", "bar"]]
           const cm = new CategoricalPatternMapper({patterns, factors, start: i, end: j})
 

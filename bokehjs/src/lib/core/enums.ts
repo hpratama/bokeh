@@ -36,14 +36,14 @@ export type FontStyle = "normal" | "italic" | "bold" | "bold italic"
 export const FontStyle: FontStyle[] = ["normal", "italic", "bold", "bold italic"]
 
 export type HatchPatternType =
-  'blank' | 'dot' | 'ring' | 'horizontal-line' | 'vertical-line' | 'cross' | 'horizontal-dash' |
-  'vertical-dash' | 'spiral' | 'right-diagonal-line' | 'left-diagonal-line' | 'diagonal-cross' |
-  'right-diagonal-dash' | 'left-diagonal-dash' | 'horizontal-wave' | 'vertical-wave' | 'criss-cross' |
+  'blank' | 'dot' | 'ring' | 'horizontal_line' | 'vertical_line' | 'cross' | 'horizontal_dash' |
+  'vertical_dash' | 'spiral' | 'right_diagonal_line' | 'left_diagonal_line' | 'diagonal_cross' |
+  'right_diagonal_dash' | 'left_diagonal_dash' | 'horizontal_wave' | 'vertical_wave' | 'criss_cross' |
   ' ' | '.' | 'o' | '-' | '|' | '+' | '"' | ':' | '@' | '/' | '\\' | 'x' | ',' | '`' | 'v' | '>' | '*'
 export const HatchPatternType: HatchPatternType[] = [
-  'blank', 'dot', 'ring', 'horizontal-line', 'vertical-line', 'cross', 'horizontal-dash',
-  'vertical-dash', 'spiral', 'right-diagonal-line', 'left-diagonal-line', 'diagonal-cross',
-  'right-diagonal-dash', 'left-diagonal-dash', 'horizontal-wave', 'vertical-wave', 'criss-cross',
+  'blank', 'dot', 'ring', 'horizontal_line', 'vertical_line', 'cross', 'horizontal_dash',
+  'vertical_dash', 'spiral', 'right_diagonal_line', 'left_diagonal_line', 'diagonal_cross',
+  'right_diagonal_dash', 'left_diagonal_dash', 'horizontal_wave', 'vertical_wave', 'criss_cross',
   ' ', '.', 'o', '-', '|', '+', '"', ':', '@',  '/', '\\', 'x', ',', '`', 'v', '>', '*',
 ]
 

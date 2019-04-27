@@ -264,20 +264,20 @@ _hatch_patterns = (
     (" ",  "blank"),
     (".",  "dot"),
     ("o",  "ring"),
-    ("-",  "horizontal-line"),
-    ("|",  "vertical-line"),
+    ("-",  "horizontal_line"),
+    ("|",  "vertical_line"),
     ("+",  "cross"),
-    ('"',  "horizontal-dash"),
-    (":",  "vertical-dash"),
+    ('"',  "horizontal_dash"),
+    (":",  "vertical_dash"),
     ("@",  "spiral"),
-    ("/",  "right-diagonal-line"),
-    ("\\", "left-diagonal-line"),
-    ("x",  "diagonal-cross"),
-    (",",  "right-diagonal-dash"),
-    ("`",  "left-diagonal-dash"),
-    ("v",  "horizontal-wave"),
-    (">",  "vertical-wave"),
-    ("*",  "criss-cross"),
+    ("/",  "right_diagonal_line"),
+    ("\\", "left_diagonal_line"),
+    ("x",  "diagonal_cross"),
+    (",",  "right_diagonal_dash"),
+    ("`",  "left_diagonal_dash"),
+    ("v",  "horizontal_wave"),
+    (">",  "vertical_wave"),
+    ("*",  "criss_cross"),
 )
 
 #: Specify one of the built-in patterns for hatching fills
@@ -292,20 +292,20 @@ HatchPattern = enumeration(*list(zip(*_hatch_patterns))[1])
 #:     " "  :  blank
 #:     "."  :  dot
 #:     "o"  :  ring
-#:     "-"  :  horizontal-line
-#:     "|"  :  vertical-line
+#:     "-"  :  horizontal_line
+#:     "|"  :  vertical_line
 #:     "+"  :  cross
-#:     '"'  :  horizontal-dash
-#:     ":"  :  vertical-dash
+#:     '"'  :  horizontal_dash
+#:     ":"  :  vertical_dash
 #:     "@"  :  spiral
-#:     "/"  :  right-diagonal-line
-#:     "\\" :  left-diagonal-line
-#:     "x"  :  diagonal-cross
-#:     ","  :  right-diagonal-dash
-#:     "`"  :  left-diagonal-dash
-#:     "v"  :  horizontal-wave
-#:     ">"  :  vertical-wave
-#:     "*"  :  criss-cross
+#:     "/"  :  right_diagonal_line
+#:     "\\" :  left_diagonal_line
+#:     "x"  :  diagonal_cross
+#:     ","  :  right_diagonal_dash
+#:     "`"  :  left_diagonal_dash
+#:     "v"  :  horizontal_wave
+#:     ">"  :  vertical_wave
+#:     "*"  :  criss_cross
 HatchPatternAbbreviation = enumeration(*list(zip(*_hatch_patterns))[0], quote=True)
 
 #: Specify whether events should be combined or collected as-is when a Document hold is in effect

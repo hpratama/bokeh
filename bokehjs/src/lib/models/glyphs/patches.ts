@@ -109,7 +109,7 @@ export class PatchesView extends GlyphView {
     return indices.sort((a, b) => a - b)
   }
 
-  protected _inner_loop(ctx: Context2d, sx: Arrayable<number>, sy: Arrayable<number>, func: any): void {
+  protected _inner_loop(ctx: Context2d, sx: Arrayable<number>, sy: Arrayable<number>, func: (this: Context2d) => void): void {
     for (let j = 0, end = sx.length; j < end; j++) {
       if (j == 0) {
         ctx.beginPath()

@@ -24,7 +24,7 @@ export type Hatch = {
   hatch_scale: p.Property<number>
   hatch_pattern: p.Property<string>
   hatch_weight: p.Property<number>
-  hatch_extra: p.Any
+  hatch_extra: p.Property<{[key: string]: p.Instance}>
 }
 
 export type Text = {
