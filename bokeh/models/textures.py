@@ -57,7 +57,7 @@ class CanvasTexture(Texture):
     '''
 
     '''
-    code = String(default="", help="""
+    code = String(help="""
     A snippet of JavaScript code to execute in the browser.
 
     """)

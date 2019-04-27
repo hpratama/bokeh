@@ -11,34 +11,38 @@ export namespace CanvasTexture {
     }
   }
 
-  export interface CanvasTexture extends CanvasTexture.Attrs {}
+export interface CanvasTexture extends CanvasTexture.Attrs {}
 
-  export abstract class CanvasTexture extends Texture {
-    properties: CanvasTexture.Props
+export abstract class CanvasTexture extends Texture {
+  properties: CanvasTexture.Props
 
-    constructor(attrs?: Partial<CanvasTexture.Attrs>) {
-      super(attrs)
-    }
-
-    static initClass(): void {
-      this.prototype.type = "CanvasTexture"
-
-      this.define<CanvasTexture.Props>({
-        code: [ p.String ],
-      })
-    }
-
-    get func(): Function {
-      const code = use_strict(this.code)
-      return new Function("color", "scale", "weight", "require", "exports", code)
-    }
-
-    get_pattern(color: any, scale: number, weight: number): (ctx: Context2d) => CanvasPattern | null {
-      return (ctx: Context2d): CanvasPattern | null => {
-        const pattern = this.func.apply(this, [color, scale, weight, require, {}])
-        return ctx.createPattern(pattern, this.repetition)
-      }
-    }
-
+  constructor(attrs?: Partial<CanvasTexture.Attrs>) {
+    super(attrs)
   }
-  CanvasTexture.initClass()
+
+  static initClass(): void {
+    this.prototype.type = "CanvasTexture"
+
+    this.define<CanvasTexture.Props>({
+      code: [ p.String ],
+    })
+  }
+
+  get func(): Function {
+    const code = use_strict(this.code)
+    return new Function("ctx", "color", "scale", "weight", "require", "exports", code)
+  }
+
+  get_pattern(color: any, scale: number, weight: number): (ctx: Context2d) => CanvasPattern | null {
+    return (ctx: Context2d): CanvasPattern | null => {
+      const canvas = document.createElement('canvas')
+      canvas.width = scale
+      canvas.height = scale
+      const pattern_ctx = canvas.getContext('2d')
+      this.func.apply(this, [pattern_ctx, color, scale, weight, require, {}])
+      return ctx.createPattern(canvas, this.repetition)
+    }
+  }
+
+}
+CanvasTexture.initClass()

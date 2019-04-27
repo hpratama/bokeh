@@ -24,7 +24,7 @@ export abstract class Texture extends Model {
     this.prototype.type = "Texture"
 
     this.define<Texture.Props>({
-      repetition: [ p.TextureRepetition ],
+      repetition: [ p.TextureRepetition, "repeat" ],
     })
   }
 
