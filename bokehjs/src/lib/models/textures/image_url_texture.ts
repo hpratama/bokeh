@@ -31,14 +31,27 @@ export namespace ImageURLTexture {
       super.initialize()
       this.image = new Image()
       this.image.src = this.url
-      // this.image.onload = () => {
-      //   console.log("DLKJGLDJLJD")
-      // }
     }
 
     get_pattern(_color: any, _scale: number, _weight: number): (ctx: Context2d) => CanvasPattern | null {
       return (ctx: Context2d): CanvasPattern | null => {
+        if (!this.image.complete) {
+          return null
+        }
         return ctx.createPattern(this.image, this.repetition)
+      }
+    }
+
+    onload(defer_func: () => void) : void {
+      if (this.image.complete) {
+        defer_func()
+      } else {
+        this.image.onload = () => {
+          defer_func()
+        }
+      }
+      if (this.image.complete) {
+        defer_func()
       }
     }
 

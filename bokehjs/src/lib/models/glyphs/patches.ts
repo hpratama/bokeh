@@ -141,10 +141,7 @@ export class PatchesView extends GlyphView {
         this._inner_loop(ctx, sx, sy, ctx.fill)
       }
 
-      if (this.visuals.hatch.doit) {
-        this.visuals.hatch.set_vectorize(ctx, i)
-        this._inner_loop(ctx, sx, sy, ctx.fill)
-      }
+      this.visuals.hatch.doit2(ctx, i, () => { this._inner_loop(ctx, sx, sy, ctx.fill) }, () => { this.renderer.request_render() })
 
       if (this.visuals.line.doit) {
         this.visuals.line.set_vectorize(ctx, i)

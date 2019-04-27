@@ -55,20 +55,19 @@ export abstract class BoxView extends GlyphView {
       if (isNaN(sleft[i] + stop[i] + sright[i] + sbottom[i]))
         continue
 
+      ctx.rect(sleft[i], stop[i], sright[i] - sleft[i], sbottom[i] - stop[i])
+
       if (this.visuals.fill.doit) {
         this.visuals.fill.set_vectorize(ctx, i)
-        ctx.fillRect(sleft[i], stop[i], sright[i] - sleft[i], sbottom[i] - stop[i])
+        ctx.fill()
       }
 
-      if (this.visuals.hatch.doit) {
-        this.visuals.hatch.set_vectorize(ctx, i)
-        ctx.fillRect(sleft[i], stop[i], sright[i] - sleft[i], sbottom[i] - stop[i])
-      }
+      this.visuals.hatch.doit2(ctx, i, () => ctx.fill(), () => { this.renderer.request_render() })
 
       if (this.visuals.line.doit) {
         this.visuals.line.set_vectorize(ctx, i)
         ctx.beginPath()
-        ctx.rect(sleft[i], stop[i], sright[i] - sleft[i], sbottom[i] - stop[i])
+
         ctx.stroke()
       }
 

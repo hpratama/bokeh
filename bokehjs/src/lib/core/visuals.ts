@@ -358,10 +358,12 @@ export class Hatch extends ContextProperties {
     return value
   }
 
-  set_value(ctx: Context2d): void {
-    const pattern = create_hatch_canvas(this.hatch_pattern.value(), this.hatch_color.value(), this.hatch_scale.value(), this.hatch_weight.value())
-    ctx.fillStyle = ctx.createPattern(pattern, 'repeat')!
-    ctx.globalAlpha = this.hatch_alpha.value()
+  _try_defer(defer_func: () => void):void {
+    const {hatch_pattern, hatch_extra} = this.cache
+    if (hatch_extra != null && hatch_extra.hasOwnProperty(hatch_pattern) ) {
+      const custom = hatch_extra[hatch_pattern]
+      custom.onload(defer_func)
+    }
   }
 
   get doit(): boolean {
@@ -370,6 +372,22 @@ export class Hatch extends ContextProperties {
              this.hatch_pattern.spec.value == " " ||
              this.hatch_pattern.spec.value == "blank" ||
              this.hatch_pattern.spec.value === null)
+  }
+
+  doit2(ctx: Context2d, i: number, ready_func: () => void, defer_func: () => void): void {
+    if (!this.doit) {
+      return
+    }
+
+    this.cache_select("pattern", i)
+    const pattern = this.cache.pattern(ctx)
+    if (pattern == null) {
+      this._try_defer(defer_func)
+    } else {
+      this.set_vectorize(ctx, i)
+      ready_func()
+    }
+
   }
 
   protected _set_vectorize(ctx: Context2d, i: number): void {

@@ -30,5 +30,9 @@ export abstract class Texture extends Model {
 
   abstract get_pattern(color: any, alpha: number, scale: number, weight: number):  (ctx: Context2d) => CanvasPattern | null
 
+  onload(defer_func: () => void) : void {
+    defer_func()
+  }
+
 }
 Texture.initClass()
