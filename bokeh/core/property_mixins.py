@@ -68,7 +68,7 @@ log = logging.getLogger(__name__)
 from .enums import HatchPattern, HatchPatternAbbreviation, LineJoin, LineCap, FontStyle, TextAlign, TextBaseline
 from .has_props import HasProps
 from .properties import (
-    Color, ColorSpec, DashPattern, Dict, Enum, FontSize, FontSizeSpec, HatchPatternSpec, HatchPatternType,
+    Color, ColorSpec, DashPattern, Dict, Enum, FontSize, FontSizeSpec, HatchPatternSpec,
     Include, Instance, Int, Float, NumberSpec, Percent, Size, String, value
 )
 
@@ -266,7 +266,7 @@ class HatchProps(HasProps):
     hatch_scale = NumberSpec(default=12.0, accept_datetime=False, accept_timedelta=False, help=_hatch_scale_help)
     hatch_pattern = HatchPatternSpec(default=None, help=_hatch_pattern_help)
     hatch_weight = NumberSpec(default=1.0, accept_datetime=False, accept_timedelta=False, help=_hatch_weight_help)
-    hatch_extra = Dict(String, Instance("bokeh.models.callbacks.CustomJS"))
+    hatch_extra = Dict(String, Instance("bokeh.models.textures.Texture"))
 
 class ScalarHatchProps(HasProps):
     ''' Properties relevant to rendering fill regions.
@@ -278,9 +278,9 @@ class ScalarHatchProps(HasProps):
     hatch_color = Color(default="black", help=_color_help % "hatching")
     hatch_alpha = Percent(default=1.0, help=_alpha_help % "hatching")
     hatch_scale = Size(default=12.0, help=_hatch_scale_help)
-    hatch_pattern = HatchPatternType(default=None, help=_hatch_pattern_help)
+    hatch_pattern = String(default=None, help=_hatch_pattern_help)  # String to accommodate user custom values
     hatch_weight = Size(default=1.0, help=_hatch_weight_help)
-    hatch_extra = Dict(String, Instance("bokeh.models.callbacks.CustomJS"))
+    hatch_extra = Dict(String, Instance("bokeh.models.textures.Texture"))
 
 _line_width_help = """
 Stroke width in units of pixels.

@@ -150,6 +150,9 @@ export const TextAlign: TextAlign[] = ["left", "right", "center"]
 export type TextBaseline = "top" | "middle" | "bottom" | "alphabetic" | "hanging" | "ideographic"
 export const TextBaseline: TextBaseline[] = ["top", "middle", "bottom", "alphabetic", "hanging", "ideographic"]
 
+export type TextureRepetition = "repeat" | "repeat_x" | "repeat_y" | "no_repeat"
+export const TextureRepetition: TextureRepetition[] = ["repeat", "repeat_x", "repeat_y", "no_repeat"]
+
 export type TickLabelOrientation = "vertical" | "horizontal" | "parallel" | "normal"
 export const TickLabelOrientation: TickLabelOrientation[] = ["vertical", "horizontal", "parallel", "normal"]
 

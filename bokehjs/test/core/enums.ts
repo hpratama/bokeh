@@ -189,6 +189,10 @@ describe("enums module", () => {
     expect(enums.TextBaseline).to.be.deep.equal(["top", "middle", "bottom", "alphabetic", "hanging", "ideographic"])
   })
 
+  it("should have TextureRepetition", () => {
+    expect(enums.TextureRepetition).to.be.deep.equal(["repeat", "repeat_x", "repeat_y", "no_repeat"])
+  })
+
   it("should have TickLabelOrientation", () => {
     expect(enums.TickLabelOrientation).to.be.deep.equal(["vertical", "horizontal", "parallel", "normal"])
   })

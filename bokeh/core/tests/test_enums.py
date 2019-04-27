@@ -230,6 +230,9 @@ class Test_bce(object):
     def test_TextBaseline(self):
         assert tuple(bce.TextBaseline) == ("top", "middle", "bottom", "alphabetic", "hanging", "ideographic")
 
+    def test_TextureRepetition(self):
+        assert tuple(bce.TextureRepetition) == ("repeat", "repeat_x", "repeat_y", "no_repeat")
+
     def test_TickLabelOrientation(self):
         assert tuple(bce.TickLabelOrientation) == ("horizontal", "vertical", "parallel", "normal")
 
@@ -293,6 +296,7 @@ def test_enums_contents():
         'StepMode',
         'TextAlign',
         'TextBaseline',
+        'TextureRepetition',
         'TickLabelOrientation',
         'TooltipAttachment',
         'TooltipFieldFormatter',
