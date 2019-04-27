@@ -269,6 +269,7 @@ _hatch_patterns = (
     ("+",  "cross"),
     ('"',  "horizontal-dash"),
     (":",  "vertical-dash"),
+    ("@",  "spiral"),
     ("/",  "right-diagonal-line"),
     ("\\", "left-diagonal-line"),
     ("x",  "diagonal-cross"),
@@ -296,6 +297,7 @@ HatchPattern = enumeration(*list(zip(*_hatch_patterns))[1])
 #:     "+"  :  cross
 #:     '"'  :  horizontal-dash
 #:     ":"  :  vertical-dash
+#:     "@"  :  spiral
 #:     "/"  :  right-diagonal-line
 #:     "\\" :  left-diagonal-line
 #:     "x"  :  diagonal-cross

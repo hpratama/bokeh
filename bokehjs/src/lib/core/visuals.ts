@@ -94,6 +94,19 @@ function create_hatch_canvas(hatch_pattern: string, hatch_color: string, hatch_s
         _vert(ctx, h2, h2)
         break
 
+      case "@":
+      case "spiral":
+        const h30 = h/30
+        ctx.moveTo(h2, h2)
+        for (let i = 0; i < 360; i++) {
+          const angle = 0.1 * i
+          const x = h2 + (h30 * angle) * Math.cos(angle)
+          const y = h2 + (h30 * angle) * Math.sin(angle)
+          ctx.lineTo(x, y)
+        }
+        ctx.stroke()
+        break
+
       case "/":
       case "right-diagonal-line":
         ctx.moveTo(-h4+0.5, h)

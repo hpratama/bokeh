@@ -47,9 +47,9 @@ describe("enums module", () => {
   it("should have HatchPatternType", () => {
     expect(enums.HatchPatternType).to.be.deep.equal([
       'blank', 'dot', 'ring', 'horizontal-line', 'vertical-line', 'cross', 'horizontal-dash',
-      'vertical-dash', 'right-diagonal-line', 'left-diagonal-line', 'diagonal-cross',
+      'vertical-dash', 'spiral' , 'right-diagonal-line', 'left-diagonal-line', 'diagonal-cross',
       'right-diagonal-dash', 'left-diagonal-dash', 'horizontal-wave', 'vertical-wave', 'criss-cross',
-      ' ', '.', 'o', '-', '|', '+', '"', ':', '/', '\\', 'x', ',', '`', 'v', '>', '*',
+      ' ', '.', 'o', '-', '|', '+', '"', ':', '@', '/', '\\', 'x', ',', '`', 'v', '>', '*',
     ])
   })
 
