@@ -62,12 +62,10 @@ export abstract class BoxView extends GlyphView {
         ctx.fill()
       }
 
-      this.visuals.hatch.doit2(ctx, i, () => ctx.fill(), () => { this.renderer.request_render() })
+      this.visuals.hatch.doit2(ctx, i, () => ctx.fill(), () => this.renderer.request_render())
 
       if (this.visuals.line.doit) {
         this.visuals.line.set_vectorize(ctx, i)
-        ctx.beginPath()
-
         ctx.stroke()
       }
 
