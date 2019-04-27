@@ -6,8 +6,8 @@ import {sum} from "core/util/arrayable"
 import {Arrayable, Area} from "core/types"
 import {PointGeometry} from "core/geometry"
 import {Context2d} from "core/util/canvas"
-import {LineVector, FillVector} from "core/property_mixins"
-import {Line, Fill} from "core/visuals"
+import {LineVector, FillVector, HatchVector} from "core/property_mixins"
+import {Line, Fill, Hatch} from "core/visuals"
 import * as hittest from "core/hittest"
 import * as p from "core/properties"
 import {Selection} from "../selections/selection"
@@ -119,6 +119,9 @@ export class MultiPolygonsView extends GlyphView {
           this.visuals.fill.set_vectorize(ctx, i)
           ctx.fill("evenodd")
         }
+
+        this.visuals.hatch.doit2(ctx, i, () => { ctx.fill("evenodd") }, () => { this.renderer.request_render() })
+
         if (this.visuals.line.doit) {
           this.visuals.line.set_vectorize(ctx, i)
           ctx.stroke()
@@ -256,12 +259,12 @@ export class MultiPolygonsView extends GlyphView {
 export namespace MultiPolygons {
   export type Attrs = p.AttrsOf<Props>
 
-  export type Props = Glyph.Props & LineVector & FillVector & {
+  export type Props = Glyph.Props & LineVector & FillVector & HatchVector & {
     xs: p.CoordinateSeqSpec
     ys: p.CoordinateSeqSpec
   }
 
-  export type Visuals = Glyph.Visuals & {line: Line, fill: Fill}
+  export type Visuals = Glyph.Visuals & {line: Line, fill: Fill, hatch: Hatch}
 }
 
 export interface MultiPolygons extends MultiPolygons.Attrs {}
@@ -278,7 +281,7 @@ export class MultiPolygons extends Glyph {
     this.prototype.default_view = MultiPolygonsView
 
     this.coords([['xs', 'ys']])
-    this.mixins(['line', 'fill'])
+    this.mixins(['line', 'fill', 'hatch'])
   }
 }
 MultiPolygons.initClass()

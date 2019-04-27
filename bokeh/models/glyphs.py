@@ -730,6 +730,10 @@ class MultiPolygons(Glyph):
     The %s values for the multipolygons.
     """)
 
+    hatch_props = Include(HatchProps, use_prefix=False, help="""
+    The %s values for the patches.
+    """)
+
 class Oval(XYGlyph):
     ''' Render ovals.
 

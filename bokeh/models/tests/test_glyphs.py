@@ -288,11 +288,12 @@ def test_MultiPolygons():
     assert glyph.xs is None
     assert glyph.ys is None
     check_fill_properties(glyph)
+    check_hatch_properties(glyph)
     check_line_properties(glyph)
     check_properties_existence(glyph, [
         "xs",
         "ys",
-    ], FILL, LINE, GLYPH)
+    ], FILL, HATCH, LINE, GLYPH)
 
 
 def test_Oval():
